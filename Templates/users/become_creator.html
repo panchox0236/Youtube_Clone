@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Become a Content Creator</h2>
+    <p>If you would like to start uploading your own content, you can become a content creator by completing the form below.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Become a Content Creator</button>
+    </form>
+</div>
+{% endblock %}

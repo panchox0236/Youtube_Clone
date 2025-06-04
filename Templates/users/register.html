@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" onfocus="this.value=''" id="username" name="username" value="{{ form.username.value }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" onfocus="this.value=''" id="email" name="email" value="{{ form.email.value }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" onfocus="this.value=''" id="password" name="password" required>
+        </div>
+        <div class="mb-3">
+            <label for="user_type" class="form-label">User Type</label>
+            <select class="form-control" id="user_type" name="user_type">
+                <option value="standard" {% if form.user_type.value == "standard" %}selected{% endif %}>Viewer</option>
+                <option value="creator" {% if form.user_type.value == "creator" %}selected{% endif %}>Content Creator</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Posts</h2>
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <a href="{% url 'post_detail' post.id %}">{{ post.post_name }}</a>
+                <p>{{ post.content|truncatewords:20 }}</p>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No posts found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

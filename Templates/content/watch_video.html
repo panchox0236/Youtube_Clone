@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/comments.js' %}"></script>
+<script src="{% static 'js/toggleDetails.js' %}"></script>
+<script src="{% static 'js/videoLikes.js' %}"></script>
+<div class="container">
+    <h2>{{ video.video_name }}</h2>
+    <div class="video-container">
+        <video controls>
+            <source src="{{ video.video_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="d-flex align-items-center mt-3">
+        <div class="info-box me-3">
+            <button id="toggle-info-btn" class="btn btn-info">Show Details</button>
+        </div>
+        
+        {% if user.is_authenticated %}
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <button id="like-video" class="btn btn-success me-2">👍 Like</button>
+        <span id="video-likes">{{ video.like }}</span>
+        <button id="dislike-video" class="btn btn-danger ms-3">👎 Dislike</button>
+        <span id="video-dislikes">{{ video.dislike }}</span>
+        {% else %}
+        <p>You need to <a href="{% url 'login' %}">login</a> to like or dislike this video.</p>
+        {% endif %}
+    </div>
+
+    <div id="video-details" class="video-details mt-3" style="display: none;">
+        <p><strong>Category:</strong> {{ video.category }}</p>
+        <p><strong>Tags:</strong> {{ video.tags }}</p>
+        <p><strong>Description:</strong> {{ video.description }}</p>
+        <p><strong>Views:</strong> {{ video.views }}</p>
+        <p><strong>Uploaded on:</strong> {{ video.created_at|date:"F j, Y" }}</p>
+    </div>
+
+    <hr>
+    {% if user.is_authenticated %}
+    <div class="mt-3">
+        <h4>Add to Playlist</h4>
+        {% if playlists %}
+        <form method="POST" action="{% url 'manage_playlist' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="playlist_select" class="form-label">Select Playlist</label>
+                <select class="form-control" id="playlist_select" name="playlist_id">
+                    {% for playlist in playlists %}
+                        <option value="{{ playlist.id }}">{{ playlist.playlist_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="video_id" value="{{ video.id }}">
+            <button type="submit" class="btn btn-primary">Add to Playlist</button>
+        </form>
+        {% else %}
+        <p>You don't have any playlists. Create one below!</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>You need to <a href="{% url 'login' %}">login</a> to add this video to a playlist.</p>
+    {% endif %}
+    
+
+    <div class="mt-3">
+        <h4>Create New Playlist</h4>
+        <form method="POST" action="{% url 'create_playlist' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="playlist_name" class="form-label">Playlist Name</label>
+                <input type="text" class="form-control" id="playlist_name" name="playlist_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="is_public" class="form-label">Make Playlist Public?</label>
+                <input type="checkbox" name="is_public" id="is_public">
+            </div>
+            <button type="submit" class="btn btn-success">Create Playlist</button>
+        </form>
+    </div>
+
+    <hr>
+    <h3>Comments</h3>
+    <div id="comments-section">
+        {% for comment in video.commentvideo_set.all %}
+            <div class="comment mb-3">
+                <strong>{{ comment.user.username }}:</strong> {{ comment.comment }}
+                <p><small>{{ comment.created_at|date:"F j, Y, g:i a" }}</small></p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <hr>
+    <h4>Leave a comment:</h4>
+    <form id="commentForm" method="post">
+        {% csrf_token %}
+        <textarea id="comment-text" class="form-control" rows="2" placeholder="Write your comment here..."></textarea>
+        <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+    </form>
+    {% else %}
+    <p>You need to <a href="{% url 'login' %}">login</a> to leave a comment.</p>
+    {% endif %}
+</div>
+{% endblock %}

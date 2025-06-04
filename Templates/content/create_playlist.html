@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Create Playlist</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="mb-3">
+            <label for="is_public" class="form-label">Make Playlist Public?</label>
+            <input type="checkbox" name="is_public" id="is_public">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Playlist</button>
+    </form>
+</div>
+{% endblock %}

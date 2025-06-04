@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Watch History</h2>
+    <div class="row">
+        {% for item in watch_history %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a href="{% url 'watch_video' item.video.id %}">
+                    <img src="{{ item.video.thumbnail.url }}" alt="{{ item.video.video_name }}" class="card-img-top">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.video.video_name }}</h5>
+                    <p class="card-text">Watched on: {{ item.watched_on|date:"F j, Y, g:i a" }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>You have no videos in your watch history.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

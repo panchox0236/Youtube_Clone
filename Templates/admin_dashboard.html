@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Admin Dashboard</h2>
+    <h3>Manage Users</h3>
+    <ul class="list-group mb-4">
+        {% for user in users %}
+            <li class="list-group-item">
+                {{ user.username }} - {{ user.email }}
+                <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm float-end">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Manage Channels</h3>
+    <ul class="list-group mb-4">
+        {% for channel in channels %}
+            <li class="list-group-item">
+                {{ channel.channel_name }} - Owner: {{ channel.user.username }}
+                <a href="{% url 'delete_channel' channel.id %}" class="btn btn-danger btn-sm float-end">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Manage Videos</h3>
+    <ul class="list-group mb-4">
+        {% for video in videos %}
+            <li class="list-group-item">
+                {{ video.video_name }} - Channel: {{ video.fk_channel_name.channel_name }}
+                <a href="{% url 'delete_video' video.id %}" class="btn btn-danger btn-sm float-end">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Manage Posts</h3>
+    <ul class="list-group mb-4">
+        {% for post in posts %}
+            <li class="list-group-item">
+                {{ post.post_name }} - Channel: {{ post.fk_channel_name.channel_name }}
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger btn-sm float-end">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Manage Playlists</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="playlist_id" class="form-label">Select Playlist</label>
+            <select class="form-control" id="playlist_id" name="playlist_id">
+                {% for playlist in playlists %}
+                    <option value="{{ playlist.id }}">{{ playlist.playlist_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="video_id" class="form-label">Video ID</label>
+            <input type="number" class="form-control" id="video_id" name="video_id" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Video to Playlist</button>
+    </form>
+
+    <hr>
+    <h4>Your Playlists</h4>
+    <ul class="list-group mt-3">
+        {% for playlist in playlists %}
+            <li class="list-group-item">
+                {{ playlist.playlist_name }}
+                <ul>
+                    {% for video in playlist.videos.all %}
+                        <li>{{ video.video_name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

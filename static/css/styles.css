@@ -1,0 +1,132 @@
+.comment {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.comment strong {
+    color: #007bff;
+}
+.info-box {
+    margin-top: 20px;
+}
+
+#toggle-info-btn {
+    margin-bottom: 10px;
+}
+
+.video-details {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -20px; 
+    margin-top: 20px;
+    max-width: 1280px; 
+    width: 100%;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        max-width: 100%;
+    }
+}
+
+.navbar-custom {
+    background-color: #36454F !important;
+}
+
+.navbar-custom .nav-link {
+    color: #ffffff !important;
+}
+
+body {
+    background-color: #FFFFF0;
+}
+
+.video-card, .history-video-card {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.video-card img, .history-video-card img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.video-card .info, .history-video-card .info {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+}
+
+.card {
+    width: 500;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}

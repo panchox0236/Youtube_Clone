@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Playlists</h2>
+    <div class="row">
+        {% for playlist in playlists %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if playlist.videos.first %}
+                <a href="{% url 'playlist_videos' playlist.id %}">
+                    <img src="{{ playlist.videos.first.thumbnail.url }}" class="card-img-top" alt="{{ playlist.playlist_name }}">
+                </a>
+
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'playlist_videos' playlist.id %}">{{ playlist.playlist_name }}</a></h5>
+                    <p class="card-text">Created: {{ playlist.created_at|date:"F j, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>You have no playlists yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

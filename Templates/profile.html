@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ user.username }}'s Profile</h2>
+    <img src="{{ user.profile_pic.url }}" alt="Profile Picture" class="img-thumbnail" style="width: 150px; height: 150px;">
+    <p>Email: {{ user.email }}</p>
+    <p>Bio: {{ user.bio }}</p>
+    <p>User Type: {{ user.get_user_type_display }}</p>
+    {% if user.user_type == 3 %}
+        <a href="{% url 'become_creator' %}" class="btn btn-primary">Become a Content Creator</a>
+    {% endif %}
+</div>
+{% endblock %}

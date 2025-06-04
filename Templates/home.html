@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Recently Uploaded Videos</h2>
+    <div class="row">
+        {% for video in videos %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <a href="{% url 'watch_video' video.id %}">
+                        <img src="{{ video.thumbnail.url }}" class="card-img-top" alt="{{ video.video_name }}">
+                    </a>
+                    <div class="card-body">
+                        <a href="{% url 'watch_video' video.id %}">
+                            <h5 class="card-title">{{ video.video_name }}</h5>
+                        </a>
+                        <p class="card-text">{{ video.description|truncatewords:10 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
